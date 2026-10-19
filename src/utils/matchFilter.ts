@@ -22,10 +22,16 @@ const STATUS_FILTER: Record<TMatchStatus, TMatchFilter> = {
 export function filterMatches(
   matches: IMatch[],
   filter: TMatchFilter,
+  query: string,
 ): IMatch[] {
-  if (filter === 'all') {
-    return matches
-  }
+  const search = query.trim().toLowerCase()
 
-  return matches.filter((match) => STATUS_FILTER[match.status] === filter)
+  return matches.filter(({ status, home, away }) => {
+    const isStatusMatch = filter === 'all' || STATUS_FILTER[status] === filter
+    const isTeamMatch = `${home.name} ${away.name}`
+      .toLowerCase()
+      .includes(search)
+
+    return isStatusMatch && isTeamMatch
+  })
 }

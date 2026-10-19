@@ -6,17 +6,20 @@ import { useMatches } from '@/hooks/useMatches'
 import { filterMatches } from '@/utils/matchFilter'
 import { MatchesContent } from './components/MatchesContent'
 import { MatchFilter } from './components/MatchFilter'
+import { MatchSearch } from './components/MatchSearch'
 import { RefreshBar } from './components/RefreshBar'
 
 export function MatchesScreen() {
   const { data, isError, isLoading, updatedAt, refresh } = useMatches()
   const { favorites, toggle: toggleFavorite } = useFavorites()
   const [filter, setFilter] = useState<TMatchFilter>('all')
-  const matches = data ? filterMatches(data.matches, filter) : null
+  const [query, setQuery] = useState('')
+  const matches = data ? filterMatches(data.matches, filter, query) : null
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Матчи тура</Text>
+      <MatchSearch value={query} onChange={setQuery} />
       <MatchFilter value={filter} onChange={setFilter} />
       {updatedAt && (
         <RefreshBar
