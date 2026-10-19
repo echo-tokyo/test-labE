@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native'
 
 // Экран «Матчи тура» — задание в README.md, часть 1.
 export function MatchesScreen() {
@@ -6,7 +6,7 @@ export function MatchesScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Матчи тура</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
   },
-});
+})

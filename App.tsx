@@ -1,14 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { MatchesScreen } from './src/screens/MatchesScreen';
+import { StatusBar } from 'expo-status-bar'
+import { StyleSheet, View } from 'react-native'
+import { MatchesScreen } from './src/screens/MatchesScreen'
 
 export default function App() {
   return (
     <View style={styles.root}>
       <MatchesScreen />
-      <StatusBar style="auto" />
+      <StatusBar style='auto' />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     backgroundColor: '#fff',
   },
-});
+})
