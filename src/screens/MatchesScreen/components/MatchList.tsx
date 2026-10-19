@@ -23,7 +23,7 @@ export function MatchList({ matches }: IProps) {
       keyExtractor={keyExtractor}
       renderItem={renderMatch}
       contentContainerStyle={styles.list}
-      ListEmptyComponent={<ScreenMessage text='В этом туре нет матчей' />}
+      ListEmptyComponent={<ScreenMessage text='Матчей нет' />}
     />
   )
 }

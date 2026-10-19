@@ -1,6 +1,8 @@
 export type TMatchStatus =
   'scheduled' | 'live' | 'finished' | 'postponed' | 'unknown'
 
+export type TMatchFilter = 'all' | 'upcoming' | 'finished'
+
 export interface ITeam {
   id: string
   name: string
