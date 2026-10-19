@@ -6,6 +6,8 @@ import { MatchCard } from './MatchCard'
 
 interface IProps {
   matches: IMatch[]
+  favoriteIds: string[]
+  onToggleFavorite: (id: string) => void
   onRefresh: () => void
 }
 
@@ -13,14 +15,26 @@ function keyExtractor(match: IMatch) {
   return match.id
 }
 
-function renderMatch({ item }: ListRenderItemInfo<IMatch>) {
-  return <MatchCard match={item} />
-}
+export function MatchList({
+  matches,
+  favoriteIds,
+  onToggleFavorite,
+  onRefresh,
+}: IProps) {
+  function renderMatch({ item }: ListRenderItemInfo<IMatch>) {
+    return (
+      <MatchCard
+        match={item}
+        isFavorite={favoriteIds.includes(item.id)}
+        onToggleFavorite={onToggleFavorite}
+      />
+    )
+  }
 
-export function MatchList({ matches, onRefresh }: IProps) {
   return (
     <FlatList
       data={matches}
+      extraData={favoriteIds}
       keyExtractor={keyExtractor}
       renderItem={renderMatch}
       refreshing={false}

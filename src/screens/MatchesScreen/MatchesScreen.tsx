@@ -1,6 +1,7 @@
 import type { TMatchFilter } from '@/types/match'
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useFavorites } from '@/hooks/useFavorites'
 import { useMatches } from '@/hooks/useMatches'
 import { filterMatches } from '@/utils/matchFilter'
 import { MatchesContent } from './components/MatchesContent'
@@ -9,6 +10,7 @@ import { RefreshBar } from './components/RefreshBar'
 
 export function MatchesScreen() {
   const { data, isError, isLoading, updatedAt, refresh } = useMatches()
+  const { favorites, toggle: toggleFavorite } = useFavorites()
   const [filter, setFilter] = useState<TMatchFilter>('all')
   const matches = data ? filterMatches(data.matches, filter) : null
 
@@ -27,6 +29,8 @@ export function MatchesScreen() {
       <MatchesContent
         matches={matches}
         isLoading={isLoading}
+        favoriteIds={favorites}
+        onToggleFavorite={toggleFavorite}
         onRefresh={refresh}
       />
     </View>

@@ -6,10 +6,18 @@ import { MatchList } from './MatchList'
 interface IProps {
   matches: IMatch[] | null
   isLoading: boolean
+  favoriteIds: string[]
+  onToggleFavorite: (id: string) => void
   onRefresh: () => void
 }
 
-export function MatchesContent({ matches, isLoading, onRefresh }: IProps) {
+export function MatchesContent({
+  matches,
+  isLoading,
+  favoriteIds,
+  onToggleFavorite,
+  onRefresh,
+}: IProps) {
   if (isLoading) {
     return <ActivityIndicator size='large' style={styles.loader} />
   }
@@ -23,7 +31,14 @@ export function MatchesContent({ matches, isLoading, onRefresh }: IProps) {
     )
   }
 
-  return <MatchList matches={matches} onRefresh={onRefresh} />
+  return (
+    <MatchList
+      matches={matches}
+      favoriteIds={favoriteIds}
+      onToggleFavorite={onToggleFavorite}
+      onRefresh={onRefresh}
+    />
+  )
 }
 
 const styles = StyleSheet.create({
