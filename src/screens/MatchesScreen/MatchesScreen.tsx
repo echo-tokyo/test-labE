@@ -5,9 +5,10 @@ import { useMatches } from '@/hooks/useMatches'
 import { filterMatches } from '@/utils/matchFilter'
 import { MatchesContent } from './components/MatchesContent'
 import { MatchFilter } from './components/MatchFilter'
+import { RefreshBar } from './components/RefreshBar'
 
 export function MatchesScreen() {
-  const { data, isError, refresh } = useMatches()
+  const { data, isError, isLoading, updatedAt, refresh } = useMatches()
   const [filter, setFilter] = useState<TMatchFilter>('all')
   const matches = data ? filterMatches(data.matches, filter) : null
 
@@ -15,7 +16,19 @@ export function MatchesScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Матчи тура</Text>
       <MatchFilter value={filter} onChange={setFilter} />
-      <MatchesContent matches={matches} isError={isError} onRetry={refresh} />
+      {updatedAt && (
+        <RefreshBar
+          updatedAt={updatedAt}
+          isLoading={isLoading}
+          isError={isError}
+          onRefresh={refresh}
+        />
+      )}
+      <MatchesContent
+        matches={matches}
+        isLoading={isLoading}
+        onRefresh={refresh}
+      />
     </View>
   )
 }

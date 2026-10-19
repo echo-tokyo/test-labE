@@ -5,25 +5,25 @@ import { MatchList } from './MatchList'
 
 interface IProps {
   matches: IMatch[] | null
-  isError: boolean
-  onRetry: () => void
+  isLoading: boolean
+  onRefresh: () => void
 }
 
-export function MatchesContent({ matches, isError, onRetry }: IProps) {
-  if (matches) {
-    return <MatchList matches={matches} />
+export function MatchesContent({ matches, isLoading, onRefresh }: IProps) {
+  if (isLoading) {
+    return <ActivityIndicator size='large' style={styles.loader} />
   }
 
-  if (isError) {
+  if (!matches) {
     return (
       <ScreenMessage
         text='Не удалось загрузить матчи'
-        action={{ label: 'Повторить', onPress: onRetry }}
+        action={{ label: 'Повторить', onPress: onRefresh }}
       />
     )
   }
 
-  return <ActivityIndicator size='large' style={styles.loader} />
+  return <MatchList matches={matches} onRefresh={onRefresh} />
 }
 
 const styles = StyleSheet.create({

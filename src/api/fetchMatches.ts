@@ -13,7 +13,7 @@ interface IMatchesResponseDto extends Omit<IMatchesResponse, 'matches'> {
 export async function fetchMatches(
   signal?: AbortSignal,
 ): Promise<IMatchesResponse> {
-  const response = await fetch(MATCHES_URL, { signal })
+  const response = await fetch(MATCHES_URL, { signal, cache: 'no-store' })
 
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`)

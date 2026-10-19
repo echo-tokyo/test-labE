@@ -6,6 +6,7 @@ import { MatchCard } from './MatchCard'
 
 interface IProps {
   matches: IMatch[]
+  onRefresh: () => void
 }
 
 function keyExtractor(match: IMatch) {
@@ -16,12 +17,14 @@ function renderMatch({ item }: ListRenderItemInfo<IMatch>) {
   return <MatchCard match={item} />
 }
 
-export function MatchList({ matches }: IProps) {
+export function MatchList({ matches, onRefresh }: IProps) {
   return (
     <FlatList
       data={matches}
       keyExtractor={keyExtractor}
       renderItem={renderMatch}
+      refreshing={false}
+      onRefresh={onRefresh}
       contentContainerStyle={styles.list}
       ListEmptyComponent={<ScreenMessage text='Матчей нет' />}
     />
